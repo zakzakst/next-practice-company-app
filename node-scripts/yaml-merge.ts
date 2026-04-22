@@ -8,10 +8,10 @@ const loadYaml = (filePath: string) => {
 };
 
 const auth = loadYaml("openapi/auth.yaml");
-const profile = loadYaml("openapi/profile.yaml");
+const adminUsers = loadYaml("openapi/admin-users.yaml");
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const merged: any = merge({}, auth, profile);
+const merged: any = merge({}, auth, adminUsers);
 merged.info = merged.info || {};
 merged.info.title = "My App API";
 

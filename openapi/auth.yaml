@@ -4,8 +4,8 @@ info:
   version: 1.0.0
 
 paths:
-  # ログイン
   /auth/login:
+    # ログイン
     post:
       operationId: authLogin
       summary: ログイン
@@ -33,8 +33,8 @@ paths:
                     type: string
                 required: ["message"]
 
-  # ログアウト
   /auth/logout:
+    # ログアウト
     post:
       operationId: authLogout
       summary: ログアウト
@@ -50,8 +50,8 @@ paths:
                     type: string
                 required: ["message"]
 
-  # サインイン
   /auth/signin:
+    # サインイン
     post:
       operationId: authSignin
       summary: サインイン
@@ -79,8 +79,8 @@ paths:
                     type: string
                 required: ["message"]
 
-  # 認証情報取得
   /auth/me:
+    # 認証情報取得
     get:
       operationId: authMe
       summary: 認証情報取得

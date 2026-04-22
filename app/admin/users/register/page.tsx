@@ -43,6 +43,12 @@ const Page = () => {
               </div>
             </div>
             <div className="col-span-2 grid grid-cols-subgrid items-center">
+              <Label htmlFor="joinedOn">入社日</Label>
+              <div>
+                <Input id="joinedOn" />
+              </div>
+            </div>
+            <div className="col-span-2 grid grid-cols-subgrid items-center">
               <Label htmlFor="roles">権限</Label>
               <div>
                 <Input id="roles" />

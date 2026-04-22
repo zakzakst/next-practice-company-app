@@ -1,209 +1,278 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ログイン — StaffBoard</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ログイン — StaffBoard</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-:root {
-  --ink: #1a1a1a;
-  --ink-2: #555;
-  --ink-3: #999;
-  --surface: #f7f6f3;
-  --white: #ffffff;
-  --accent: #2d5be3;
-  --accent-light: #eef1fd;
-  --border: #e2e0da;
-  --radius: 10px;
-  --font: 'DM Sans', sans-serif;
-  --mono: 'DM Mono', monospace;
-}
+      :root {
+        --ink: #1a1a1a;
+        --ink-2: #555;
+        --ink-3: #999;
+        --surface: #f7f6f3;
+        --white: #ffffff;
+        --accent: #2d5be3;
+        --accent-light: #eef1fd;
+        --border: #e2e0da;
+        --radius: 10px;
+        --font: "DM Sans", sans-serif;
+        --mono: "DM Mono", monospace;
+      }
 
-body {
-  font-family: var(--font);
-  background: var(--surface);
-  color: var(--ink);
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+      body {
+        font-family: var(--font);
+        background: var(--surface);
+        color: var(--ink);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-.bg-pattern {
-  position: fixed; inset: 0; z-index: 0;
-  background-image:
-    radial-gradient(circle at 20% 30%, rgba(45,91,227,0.06) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(45,91,227,0.04) 0%, transparent 40%);
-}
+      .bg-pattern {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        background-image:
+          radial-gradient(
+            circle at 20% 30%,
+            rgba(45, 91, 227, 0.06) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 70%,
+            rgba(45, 91, 227, 0.04) 0%,
+            transparent 40%
+          );
+      }
 
-.container {
-  position: relative; z-index: 1;
-  width: 100%; max-width: 420px;
-  padding: 24px;
-}
+      .container {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 420px;
+        padding: 24px;
+      }
 
-.logo {
-  text-align: center;
-  margin-bottom: 40px;
-}
-.logo-mark {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
-.logo-icon {
-  width: 36px; height: 36px;
-  background: var(--accent);
-  border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-}
-.logo-icon svg { width: 18px; height: 18px; }
-.logo-text {
-  font-size: 20px;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-}
+      .logo {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .logo-mark {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .logo-icon {
+        width: 36px;
+        height: 36px;
+        background: var(--accent);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .logo-icon svg {
+        width: 18px;
+        height: 18px;
+      }
+      .logo-text {
+        font-size: 20px;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+      }
 
-.card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 36px;
-  box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-}
+      .card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 36px;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+      }
 
-.card-title {
-  font-size: 22px;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  margin-bottom: 6px;
-}
-.card-sub {
-  font-size: 14px;
-  color: var(--ink-2);
-  margin-bottom: 28px;
-}
+      .card-title {
+        font-size: 22px;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        margin-bottom: 6px;
+      }
+      .card-sub {
+        font-size: 14px;
+        color: var(--ink-2);
+        margin-bottom: 28px;
+      }
 
-.field { margin-bottom: 18px; }
-.field label {
-  display: block;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--ink-2);
-  margin-bottom: 6px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-.field input {
-  width: 100%;
-  padding: 11px 14px;
-  font-family: var(--font);
-  font-size: 15px;
-  color: var(--ink);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  outline: none;
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-.field input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(45,91,227,0.1);
-  background: var(--white);
-}
+      .field {
+        margin-bottom: 18px;
+      }
+      .field label {
+        display: block;
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--ink-2);
+        margin-bottom: 6px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .field input {
+        width: 100%;
+        padding: 11px 14px;
+        font-family: var(--font);
+        font-size: 15px;
+        color: var(--ink);
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        outline: none;
+        transition:
+          border-color 0.15s,
+          box-shadow 0.15s;
+      }
+      .field input:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(45, 91, 227, 0.1);
+        background: var(--white);
+      }
 
-.btn-primary {
-  width: 100%;
-  padding: 12px;
-  font-family: var(--font);
-  font-size: 15px;
-  font-weight: 500;
-  color: #fff;
-  background: var(--accent);
-  border: none;
-  border-radius: var(--radius);
-  cursor: pointer;
-  margin-top: 8px;
-  transition: background 0.15s, transform 0.1s;
-  letter-spacing: -0.01em;
-}
-.btn-primary:hover { background: #2449c4; }
-.btn-primary:active { transform: scale(0.99); }
+      .btn-primary {
+        width: 100%;
+        padding: 12px;
+        font-family: var(--font);
+        font-size: 15px;
+        font-weight: 500;
+        color: #fff;
+        background: var(--accent);
+        border: none;
+        border-radius: var(--radius);
+        cursor: pointer;
+        margin-top: 8px;
+        transition:
+          background 0.15s,
+          transform 0.1s;
+        letter-spacing: -0.01em;
+      }
+      .btn-primary:hover {
+        background: #2449c4;
+      }
+      .btn-primary:active {
+        transform: scale(0.99);
+      }
 
-.link-row {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 13px;
-  color: var(--ink-3);
-}
-.link-row a {
-  color: var(--accent);
-  text-decoration: none;
-  font-weight: 500;
-}
+      .link-row {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 13px;
+        color: var(--ink-3);
+      }
+      .link-row a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 500;
+      }
 
-.nav-hint {
-  text-align: center;
-  margin-top: 28px;
-  font-size: 12px;
-  color: var(--ink-3);
-  font-family: var(--mono);
-}
-.nav-hint a {
-  color: var(--accent);
-  text-decoration: none;
-  margin: 0 8px;
-}
-</style>
-</head>
-<body>
-<div class="bg-pattern"></div>
-<div class="container">
-  <div class="logo">
-    <div class="logo-mark">
-      <div class="logo-icon">
-        <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="2" y="2" width="6" height="6" rx="1.5" fill="white"/>
-          <rect x="10" y="2" width="6" height="6" rx="1.5" fill="white" opacity="0.6"/>
-          <rect x="2" y="10" width="6" height="6" rx="1.5" fill="white" opacity="0.6"/>
-          <rect x="10" y="10" width="6" height="6" rx="1.5" fill="white" opacity="0.3"/>
-        </svg>
+      .nav-hint {
+        text-align: center;
+        margin-top: 28px;
+        font-size: 12px;
+        color: var(--ink-3);
+        font-family: var(--mono);
+      }
+      .nav-hint a {
+        color: var(--accent);
+        text-decoration: none;
+        margin: 0 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-pattern"></div>
+    <div class="container">
+      <div class="logo">
+        <div class="logo-mark">
+          <div class="logo-icon">
+            <svg
+              viewBox="0 0 18 18"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect x="2" y="2" width="6" height="6" rx="1.5" fill="white" />
+              <rect
+                x="10"
+                y="2"
+                width="6"
+                height="6"
+                rx="1.5"
+                fill="white"
+                opacity="0.6"
+              />
+              <rect
+                x="2"
+                y="10"
+                width="6"
+                height="6"
+                rx="1.5"
+                fill="white"
+                opacity="0.6"
+              />
+              <rect
+                x="10"
+                y="10"
+                width="6"
+                height="6"
+                rx="1.5"
+                fill="white"
+                opacity="0.3"
+              />
+            </svg>
+          </div>
+          <span class="logo-text">StaffBoard</span>
+        </div>
       </div>
-      <span class="logo-text">StaffBoard</span>
+
+      <div class="card">
+        <div class="card-title">ログイン</div>
+        <div class="card-sub">メールアドレスとパスワードを入力してください</div>
+
+        <div class="field">
+          <label>メールアドレス</label>
+          <input
+            type="email"
+            placeholder="you@example.com"
+            value="yamada@example.com"
+          />
+        </div>
+        <div class="field">
+          <label>パスワード</label>
+          <input type="password" placeholder="••••••••" value="password" />
+        </div>
+
+        <button class="btn-primary">ログイン</button>
+
+        <div class="link-row">
+          <a href="#">パスワードを忘れた方はこちら</a>
+        </div>
+      </div>
+
+      <div class="nav-hint">
+        画面サンプル：
+        <a href="01_login.html">ログイン</a>
+        <a href="02_mypage.html">マイページ</a>
+        <a href="03_kintai.html">勤怠</a>
+        <a href="04_admin.html">管理者</a>
+      </div>
     </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">ログイン</div>
-    <div class="card-sub">メールアドレスとパスワードを入力してください</div>
-
-    <div class="field">
-      <label>メールアドレス</label>
-      <input type="email" placeholder="you@example.com" value="yamada@example.com">
-    </div>
-    <div class="field">
-      <label>パスワード</label>
-      <input type="password" placeholder="••••••••" value="password">
-    </div>
-
-    <button class="btn-primary">ログイン</button>
-
-    <div class="link-row">
-      <a href="#">パスワードを忘れた方はこちら</a>
-    </div>
-  </div>
-
-  <div class="nav-hint">
-    画面サンプル：
-    <a href="01_login.html">ログイン</a>
-    <a href="02_mypage.html">マイページ</a>
-    <a href="03_kintai.html">勤怠</a>
-    <a href="04_admin.html">管理者</a>
-  </div>
-</div>
-</body>
+  </body>
 </html>
