@@ -1,4 +1,4 @@
-// TODO: 調べて修正。storybookで「__dirname not defined」エラー（orval導入時にaxios利用したのが影響？）
+// TODO: 調べて修正。storybookで「__dirname not defined」エラー（orval導入が影響？）
 import { Navbar } from "@/components/common/Navbar";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { authMeHandler } from "@/lib/msw/handlers/auth";
