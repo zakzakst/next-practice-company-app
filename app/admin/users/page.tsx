@@ -1,27 +1,18 @@
+"use client";
+
 import Link from "next/link";
 
+import { ButtonPagination } from "@/components/common/ButtonPagination";
+import { SearchInput } from "@/components/common/SearchInput";
+import { UsersList } from "@/components/features/users/UsersList";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-
-type User = {
-  id: number;
-  name: string;
-  department: string;
-  jobTitle: string;
-  phone: string;
-  email: string;
-  joinedOn: string;
-  roles: string[];
-};
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
+import { User } from "@/orval/adminUsers";
 
 const users: User[] = [
   {
@@ -36,10 +27,6 @@ const users: User[] = [
   },
 ];
 
-const Data = {
-  users,
-};
-
 const Page = () => {
   return (
     <div>
@@ -50,43 +37,20 @@ const Page = () => {
         </Button>
       </div>
       <Card className="mt-4">
-        <CardHeader className="grid grid-cols-[1fr_max-content] gap-2">
-          <Input />
-          <Button>絞り込み</Button>
+        <CardHeader>
+          <SearchInput value="" onSubmit={() => {}} />
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>氏名</TableHead>
-                <TableHead>部署</TableHead>
-                <TableHead>役職</TableHead>
-                <TableHead>電話番号</TableHead>
-                <TableHead>メールアドレス</TableHead>
-                <TableHead>権限</TableHead>
-                <TableHead></TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {Data.users.map((user) => (
-                <TableRow key={user.id}>
-                  <TableCell>{user.name}</TableCell>
-                  <TableCell>{user.department}</TableCell>
-                  <TableCell>{user.jobTitle}</TableCell>
-                  <TableCell>{user.phone}</TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>{user.roles[0]}</TableCell>
-                  <TableCell className="text-right">
-                    <Button asChild>
-                      <Link href={`/admin/users/${user.id}/edit`}>更新</Link>
-                    </Button>
-                    <Button>削除</Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+          <UsersList users={users} onDeleteUser={() => {}} />
         </CardContent>
+        <CardFooter>
+          <ButtonPagination
+            total={100}
+            limit={10}
+            current={1}
+            onMovePage={() => {}}
+          />
+        </CardFooter>
       </Card>
     </div>
   );

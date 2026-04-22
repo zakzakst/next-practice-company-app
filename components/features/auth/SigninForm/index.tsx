@@ -32,6 +32,7 @@ export const signinFormSchema = z.object({
 export type SigninFormValues = z.infer<typeof signinFormSchema>;
 
 export const SigninForm = () => {
+  // TODO: サインインフォームのコンポーネントからAPI連携を分離する
   const router = useRouter();
   const { trigger, isMutating } = useAuthSignin();
   const { mutate } = useAuth();
