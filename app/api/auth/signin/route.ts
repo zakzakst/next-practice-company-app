@@ -36,7 +36,11 @@ export const POST = withErrorHandler(
     const newUser: UserEntity = {
       id: users.length + 1,
       name: "",
+      department: "",
+      jobTitle: "",
+      phone: "",
       email,
+      joinedOn: "",
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };

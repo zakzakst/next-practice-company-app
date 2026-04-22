@@ -9,13 +9,14 @@ export default defineConfig({
       baseUrl: "/api",
     },
     hooks: {
+      // TODO: 調べて修正。ファイル全体にprettierがかかっている
       afterAllFilesWrite: "npm run lint:prettier",
     },
   },
-  profile: {
-    input: "./openapi/profile.yaml",
+  adminUsers: {
+    input: "./openapi/admin-users.yaml",
     output: {
-      target: "./orval/profile.ts",
+      target: "./orval/adminUsers.ts",
       client: "swr",
       baseUrl: "/api",
     },
