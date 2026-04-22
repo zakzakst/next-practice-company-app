@@ -22,7 +22,7 @@ paths:
                 - email
                 - password
       responses:
-        '200':
+        "200":
           description: ログイン成功
           content:
             application/json:
@@ -38,7 +38,7 @@ paths:
       operationId: authLogout
       summary: ログアウト
       responses:
-        '200':
+        "200":
           description: ログアウト成功
           content:
             application/json:
@@ -68,7 +68,7 @@ paths:
                 - email
                 - password
       responses:
-        '200':
+        "200":
           description: サインイン成功
           content:
             application/json:
@@ -84,7 +84,7 @@ paths:
       operationId: authMe
       summary: 認証情報取得
       responses:
-        '200':
+        "200":
           description: 認証情報取得成功
           content:
             application/json:
@@ -92,7 +92,7 @@ paths:
                 type: object
                 properties:
                   me:
-                    $ref: '#/components/schemas/AuthMe'
+                    $ref: "#/components/schemas/AuthMe"
                     nullable: true
   /admin/users:
     get:
@@ -110,7 +110,7 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: ユーザー情報一覧取得成功
           content:
             application/json:
@@ -126,7 +126,7 @@ paths:
                   users:
                     type: array
                     items:
-                      $ref: '#/components/schemas/User'
+                      $ref: "#/components/schemas/User"
                 required:
                   - total
                   - page
@@ -169,12 +169,12 @@ paths:
                 - joinedOn
                 - roles
       responses:
-        '201':
+        "201":
           description: 新規ユーザー作成成功
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: "#/components/schemas/User"
   /admin/users/{id}:
     put:
       operationId: putAdminUser
@@ -218,12 +218,12 @@ paths:
                 - joinedOn
                 - roles
       responses:
-        '200':
+        "200":
           description: ユーザー情報更新成功
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: "#/components/schemas/User"
     delete:
       operationId: deleteAdminUser
       summary: ユーザー削除
@@ -234,7 +234,7 @@ paths:
           schema:
             type: integer
       responses:
-        '204':
+        "204":
           description: ユーザー削除成功
           content:
             application/json:

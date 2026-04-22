@@ -12,6 +12,7 @@ type Props = {
 };
 
 export const Navbar = ({ className }: Props) => {
+  // TODO: ログインフォームのコンポーネントからAPI連携を分離する
   const { me, logout, isLoading, isMutating } = useAuth();
   const pathname = usePathname();
 

@@ -32,6 +32,7 @@ export const loginFormSchema = z.object({
 export type LoginFormValues = z.infer<typeof loginFormSchema>;
 
 export const LoginForm = () => {
+  // TODO: ログインフォームのコンポーネントからAPI連携を分離する
   const router = useRouter();
   const { trigger, isMutating } = useAuthLogin();
   const { mutate } = useAuth();
