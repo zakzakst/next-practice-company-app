@@ -4,7 +4,12 @@ import { dbAuths } from "@/dummy-db/auth";
 import { dbUsers } from "@/dummy-db/user";
 import { ApiError, apiDelay, withErrorHandler } from "@/lib/api";
 import { getJwtPayload } from "@/lib/jwt";
-import { GetAdminUsers200, User } from "@/orval/adminUsers";
+import {
+  DeleteAdminUsers200,
+  DeleteAdminUsersBody,
+  GetAdminUsers200,
+  User,
+} from "@/orval/adminUsers";
 import lodash from "lodash";
 
 const getUsers = (): User[] => {
@@ -66,6 +71,37 @@ export const GET = withErrorHandler(
       limit: LIMIT,
       page: pageNum,
       users: limitedData,
+    });
+  },
+);
+
+export const DELETE = withErrorHandler(
+  async (request: NextRequest): Promise<NextResponse<DeleteAdminUsers200>> => {
+    await apiDelay();
+
+    // === 権限の確認 ===
+    const jwtPayload = await getJwtPayload();
+    if (!jwtPayload?.roles.includes("admin")) {
+      throw new ApiError(401, "実行権限がありません", "UNAUTHORIZED");
+    }
+
+    // === 対象データが存在するか確認 ===
+    const params: DeleteAdminUsersBody = await request.json();
+    const { id } = params;
+    const user = dbUsers.find((du) => du.id === Number(id));
+    const auth = dbAuths.find((da) => da.email === user?.email);
+    if (!user || !auth) {
+      throw new ApiError(404, "対応するユーザーが見つかりません", "NOT_FOUND");
+    }
+
+    // === 削除実行 ===
+    const userIndex = dbUsers.findIndex((du) => du === user);
+    dbUsers.splice(userIndex, 1);
+    const authIndex = dbAuths.findIndex((da) => da === auth);
+    dbAuths.splice(authIndex, 1);
+
+    return NextResponse.json({
+      message: "ユーザー削除成功",
     });
   },
 );

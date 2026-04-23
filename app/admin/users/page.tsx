@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 import Link from "next/link";
 
@@ -14,11 +14,28 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { GetAdminUsersParams, useGetAdminUsers } from "@/orval/adminUsers";
+import {
+  GetAdminUsersParams,
+  User,
+  useDeleteAdminUsers,
+  useGetAdminUsers,
+} from "@/orval/adminUsers";
+
+const DefaultParams: GetAdminUsersParams = {};
 
 const Page = () => {
-  const [params, setParams] = useState<GetAdminUsersParams>({});
-  const { data, isLoading } = useGetAdminUsers(params);
+  const [params, setParams] = useState<GetAdminUsersParams>(DefaultParams);
+  const { data, isLoading, mutate } = useGetAdminUsers(params);
+  const { trigger, isMutating } = useDeleteAdminUsers();
+
+  const handleDeleteUser = useCallback(
+    (user: User) => {
+      trigger({ id: user.id });
+      setParams(DefaultParams);
+      mutate();
+    },
+    [trigger, setParams, mutate],
+  );
 
   return (
     <div>
@@ -38,8 +55,8 @@ const Page = () => {
         <CardContent>
           <UsersList
             users={data?.data.users || []}
-            onDeleteUser={() => {}}
-            loading={isLoading}
+            onDeleteUser={handleDeleteUser}
+            loading={isLoading || isMutating}
           />
         </CardContent>
         {!!data?.data.total && (
