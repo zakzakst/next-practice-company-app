@@ -46,4 +46,12 @@ describe("UsersList", () => {
     // Assert
     expect(deleteButtons[0]).toHaveAttribute("disabled");
   });
+
+  test("loadingが設定されている場合、通信中の表示になる", () => {
+    // Arrange
+    render(<UsersList users={usersMock} onDeleteUser={() => {}} loading />);
+
+    // Assert
+    expect(screen.getByText("通信中")).toBeInTheDocument();
+  });
 });

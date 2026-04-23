@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 import Link from "next/link";
 
 import { ButtonPagination } from "@/components/common/ButtonPagination";
@@ -12,22 +14,12 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { User } from "@/orval/adminUsers";
-
-const users: User[] = [
-  {
-    id: 1,
-    name: "Yamada",
-    department: "○○部",
-    jobTitle: "メンバー",
-    phone: "08000000000",
-    email: "taro@example.com",
-    joinedOn: "2026-04-01",
-    roles: ["user"],
-  },
-];
+import { GetAdminUsersParams, useGetAdminUsers } from "@/orval/adminUsers";
 
 const Page = () => {
+  const [params, setParams] = useState<GetAdminUsersParams>({});
+  const { data, isLoading } = useGetAdminUsers(params);
+
   return (
     <div>
       <h1 className="text-2xl font-bold">ユーザー管理</h1>
@@ -38,19 +30,30 @@ const Page = () => {
       </div>
       <Card className="mt-4">
         <CardHeader>
-          <SearchInput value="" onSubmit={() => {}} />
+          <SearchInput
+            value={params.q}
+            onSubmit={(q) => setParams({ q, page: 1 })}
+          />
         </CardHeader>
         <CardContent>
-          <UsersList users={users} onDeleteUser={() => {}} />
-        </CardContent>
-        <CardFooter>
-          <ButtonPagination
-            total={100}
-            limit={10}
-            current={1}
-            onMovePage={() => {}}
+          <UsersList
+            users={data?.data.users || []}
+            onDeleteUser={() => {}}
+            loading={isLoading}
           />
-        </CardFooter>
+        </CardContent>
+        {!!data?.data.total && (
+          <CardFooter>
+            <ButtonPagination
+              total={data?.data.total}
+              limit={data?.data.limit}
+              current={data?.data.page}
+              onMovePage={(page) =>
+                setParams((current) => ({ ...current, page }))
+              }
+            />
+          </CardFooter>
+        )}
       </Card>
     </div>
   );
