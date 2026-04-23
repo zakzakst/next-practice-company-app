@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import {
   Pagination,
   PaginationContent,
+  // TODO: 量が多い時の表示方法変えたい
   // PaginationEllipsis,
   PaginationItem,
 } from "@/components/ui/pagination";
@@ -22,6 +23,7 @@ const ButtonPaginationButton = ({ isActive, ...rest }: ButtonProps) => {
 export type Props = {
   total?: number;
   limit?: number;
+  // TODO: pageに変えたい
   current?: number;
   onMovePage: (page: number) => void;
 };
