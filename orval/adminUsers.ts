@@ -61,6 +61,14 @@ export type PostAdminUserBody = {
   roles: PostAdminUserBodyRolesItem[];
 };
 
+export type DeleteAdminUsersBody = {
+  id: number;
+};
+
+export type DeleteAdminUsers200 = {
+  message: string;
+};
+
 export type PutAdminUserBodyRolesItem =
   (typeof PutAdminUserBodyRolesItem)[keyof typeof PutAdminUserBodyRolesItem];
 
@@ -179,6 +187,60 @@ export const usePostAdminUser = <TError = AxiosError<unknown>>(options?: {
 
   const swrKey = swrOptions?.swrKey ?? getPostAdminUserMutationKey();
   const swrFn = getPostAdminUserMutationFetcher(axiosOptions);
+
+  const query = useSWRMutation(swrKey, swrFn, swrOptions);
+
+  return {
+    swrKey,
+    ...query,
+  };
+};
+
+/**
+ * @summary ユーザー削除
+ */
+export const deleteAdminUsers = (
+  deleteAdminUsersBody: DeleteAdminUsersBody,
+  options?: AxiosRequestConfig,
+): Promise<AxiosResponse<DeleteAdminUsers200>> => {
+  return axios.delete(`/api/admin/users`, {
+    data: deleteAdminUsersBody,
+    ...options,
+  });
+};
+
+export const getDeleteAdminUsersMutationFetcher = (
+  options?: AxiosRequestConfig,
+) => {
+  return (_: Key, { arg }: { arg: DeleteAdminUsersBody }) => {
+    return deleteAdminUsers(arg, options);
+  };
+};
+export const getDeleteAdminUsersMutationKey = () =>
+  [`/api/admin/users`] as const;
+
+export type DeleteAdminUsersMutationResult = NonNullable<
+  Awaited<ReturnType<typeof deleteAdminUsers>>
+>;
+export type DeleteAdminUsersMutationError = AxiosError<unknown>;
+
+/**
+ * @summary ユーザー削除
+ */
+export const useDeleteAdminUsers = <TError = AxiosError<unknown>>(options?: {
+  swr?: SWRMutationConfiguration<
+    Awaited<ReturnType<typeof deleteAdminUsers>>,
+    TError,
+    Key,
+    DeleteAdminUsersBody,
+    Awaited<ReturnType<typeof deleteAdminUsers>>
+  > & { swrKey?: string };
+  axios?: AxiosRequestConfig;
+}) => {
+  const { swr: swrOptions, axios: axiosOptions } = options ?? {};
+
+  const swrKey = swrOptions?.swrKey ?? getDeleteAdminUsersMutationKey();
+  const swrFn = getDeleteAdminUsersMutationFetcher(axiosOptions);
 
   const query = useSWRMutation(swrKey, swrFn, swrOptions);
 

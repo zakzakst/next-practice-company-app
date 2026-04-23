@@ -79,6 +79,7 @@ export const UsersList = ({
                     <Button
                       onClick={() => onDeleteUser(user)}
                       disabled={disabled}
+                      data-testid={`users-list-delete-button-${user.id}`}
                     >
                       削除
                     </Button>
