@@ -1,6 +1,6 @@
 import { UserEntity } from "@/types/entities/user";
 
-export const users: UserEntity[] = [
+export const dbUsers: UserEntity[] = [
   {
     id: 1,
     name: "Taro Yamada",

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { auths } from "@/dummy-db/auth";
-import { users } from "@/dummy-db/user";
+import { dbAuths } from "@/dummy-db/auth";
+import { dbUsers } from "@/dummy-db/user";
 import { ApiError, apiDelay, withErrorHandler } from "@/lib/api";
 import { signToken } from "@/lib/jwt";
 import { AuthLogin200, AuthLoginBody } from "@/orval/auth";
@@ -13,7 +13,7 @@ export const POST = withErrorHandler(
     const { email, password }: AuthLoginBody = await request.json();
 
     // === 認証情報の確認 ===
-    const auth = auths.find(
+    const auth = dbAuths.find(
       (a) => a.email === email && a.password === password,
     );
     if (!auth) {
@@ -25,14 +25,14 @@ export const POST = withErrorHandler(
     }
 
     // === ユーザー情報の確認 ===
-    const user = users.find((u) => u.email === email);
+    const user = dbUsers.find((u) => u.email === email);
     if (!user) {
       throw new ApiError(404, "対応するユーザーが見つかりません", "NOT_FOUND");
     }
 
     // === 最終ログイン日時の更新 ===
-    const authIndex = auths.findIndex((a) => a === auth);
-    auths[authIndex] = {
+    const authIndex = dbAuths.findIndex((a) => a === auth);
+    dbAuths[authIndex] = {
       ...auth,
       lastLoginAt: new Date().toISOString(),
     };
