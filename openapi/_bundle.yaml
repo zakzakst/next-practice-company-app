@@ -22,7 +22,7 @@ paths:
                 - email
                 - password
       responses:
-        "200":
+        '200':
           description: ログイン成功
           content:
             application/json:
@@ -38,7 +38,7 @@ paths:
       operationId: authLogout
       summary: ログアウト
       responses:
-        "200":
+        '200':
           description: ログアウト成功
           content:
             application/json:
@@ -68,7 +68,7 @@ paths:
                 - email
                 - password
       responses:
-        "200":
+        '200':
           description: サインイン成功
           content:
             application/json:
@@ -84,7 +84,7 @@ paths:
       operationId: authMe
       summary: 認証情報取得
       responses:
-        "200":
+        '200':
           description: 認証情報取得成功
           content:
             application/json:
@@ -92,7 +92,7 @@ paths:
                 type: object
                 properties:
                   me:
-                    $ref: "#/components/schemas/AuthMe"
+                    $ref: '#/components/schemas/AuthMe'
                     nullable: true
   /admin/users:
     get:
@@ -110,7 +110,7 @@ paths:
           schema:
             type: integer
       responses:
-        "200":
+        '200':
           description: ユーザー情報一覧取得成功
           content:
             application/json:
@@ -126,7 +126,7 @@ paths:
                   users:
                     type: array
                     items:
-                      $ref: "#/components/schemas/User"
+                      $ref: '#/components/schemas/User'
                 required:
                   - total
                   - page
@@ -166,12 +166,12 @@ paths:
                 - email
                 - roles
       responses:
-        "201":
+        '201':
           description: 新規ユーザー作成成功
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
+                $ref: '#/components/schemas/User'
     delete:
       operationId: deleteAdminUsers
       summary: ユーザー削除
@@ -187,7 +187,7 @@ paths:
               required:
                 - id
       responses:
-        "200":
+        '200':
           description: ユーザー削除成功
           content:
             application/json:
@@ -199,6 +199,22 @@ paths:
                 required:
                   - message
   /admin/users/{id}:
+    get:
+      operationId: getAdminUser
+      summary: ユーザー情報取得
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ユーザー情報取得成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
     put:
       operationId: putAdminUser
       parameters:
@@ -238,12 +254,12 @@ paths:
                 - email
                 - roles
       responses:
-        "200":
+        '200':
           description: ユーザー情報更新成功
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
+                $ref: '#/components/schemas/User'
     delete:
       operationId: deleteAdminUser
       summary: ユーザー削除
@@ -254,7 +270,7 @@ paths:
           schema:
             type: integer
       responses:
-        "204":
+        '204':
           description: ユーザー削除成功
           content:
             application/json:
@@ -265,6 +281,97 @@ paths:
                     type: string
                 required:
                   - message
+  /my-data:
+    get:
+      operationId: getMyData
+      summary: マイデータ取得
+      responses:
+        '200':
+          description: マイデータ取得成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MyData'
+    put:
+      operationId: putMyData
+      summary: マイデータ更新
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                phone:
+                  type: string
+                email:
+                  type: string
+              required:
+                - name
+                - email
+      responses:
+        '200':
+          description: マイデータ更新成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MyData'
+  /my-data/password:
+    put:
+      operationId: putMyDataPassword
+      summary: パスワード更新
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                newPassword:
+                  type: string
+              required:
+                - password
+                - newPassword
+      responses:
+        '200':
+          description: パスワード更新
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+  /attendances:
+    get:
+      operationId: getAttendances
+      summary: 勤怠情報取得
+      parameters:
+        - name: month
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ユーザー情報一覧取得成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  attendances:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Attendance'
+                required:
+                  - attendances
 components:
   schemas:
     AuthMe:
@@ -323,3 +430,65 @@ components:
         - email
         - joinedOn
         - roles
+    MyData:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        department:
+          type: string
+        jobTitle:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        joinedOn:
+          type: string
+          format: date
+        roles:
+          type: array
+          items:
+            type: string
+            enum:
+              - user
+              - admin
+      required:
+        - id
+        - name
+        - department
+        - jobTitle
+        - phone
+        - email
+        - joinedOn
+        - roles
+    Attendance:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        clockIn:
+          type: string
+        clockOut:
+          type: string
+        break:
+          type: string
+        type:
+          type: string
+          enum:
+            - working
+            - onLeave
+            - leftEarly
+            - other
+        note:
+          type: string
+      required:
+        - date
+        - clockIn
+        - clockOut
+        - break
+        - type
+        - note
