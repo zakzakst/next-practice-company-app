@@ -41,7 +41,7 @@ export const MyInfo = ({ data }: Props) => {
       <CardFooter>
         <div className="flex items-center gap-2">
           <Button size="lg" asChild>
-            <Link href="/mypage/edit-profile">プロフィール更新</Link>
+            <Link href="/mypage/edit-info">更新</Link>
           </Button>
           <Button size="lg" asChild>
             <Link href="/mypage/edit-password">パスワード更新</Link>

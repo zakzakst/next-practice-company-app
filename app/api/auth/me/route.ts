@@ -13,7 +13,7 @@ export const GET = withErrorHandler(
     // === 認証状態の確認 ===
     const jwtPayload = await getJwtPayload();
     if (!jwtPayload) {
-      // 未ログインの場合、空のプロフィール情報を返す
+      // 未ログインの場合、空の情報を返す
       return NextResponse.json({});
     }
 
