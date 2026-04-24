@@ -26,7 +26,7 @@ export const DatePicker = ({ date, onSelect }: Props) => {
         >
           <CalendarIcon />
           {date ? (
-            format(date, "yyyy/MM/dd")
+            format(date, "yyyy-MM-dd")
           ) : (
             <span>日付を選択してください</span>
           )}
