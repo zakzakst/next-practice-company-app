@@ -1,0 +1,55 @@
+openapi: 3.0.0
+info:
+  title: マイデータ
+  version: 1.0.0
+
+paths:
+  /my-data:
+    # マイデータ取得
+    get:
+      operationId: getMyData
+      summary: マイデータ取得
+      responses:
+        "200":
+          description: ユーザー情報一覧取得成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MyData"
+
+components:
+  schemas:
+    MyData:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        department:
+          type: string
+        jobTitle:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        joinedOn:
+          type: string
+          format: date
+        roles:
+          type: array
+          items:
+            type: string
+            enum: ["user", "admin"]
+      required:
+        [
+          "id",
+          "name",
+          "department",
+          "jobTitle",
+          "phone",
+          "email",
+          "joinedOn",
+          "roles",
+        ]
