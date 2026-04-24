@@ -7,6 +7,7 @@ paths:
   /admin/users:
     # ユーザー情報一覧を取得
     get:
+      # TODO: operationIdの命名方法見直す。getやpostだと内容の手がかりが得られない
       operationId: getAdminUsers
       summary: ユーザー情報一覧取得
       parameters:
@@ -104,6 +105,24 @@ paths:
                 required: ["message"]
 
   /admin/users/{id}:
+    # ユーザー情報取得
+    get:
+      operationId: getAdminUser
+      summary: ユーザー情報取得
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: ユーザー情報取得成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+
     # ユーザー情報更新
     put:
       operationId: putAdminUser
