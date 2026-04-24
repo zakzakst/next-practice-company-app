@@ -40,20 +40,15 @@ export const UserForm = ({ values, onSubmit, onReturn }: Props) => {
     register,
     handleSubmit,
     control,
-    watch,
-    getFieldState,
     formState: { isValid, isDirty, errors },
   } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: values,
   });
 
-  const test = watch();
-
   return (
     <Card>
       <CardContent>
-        <div>{JSON.stringify(getFieldState("department"))}</div>
         <div className="grid grid-cols-[max-content_1fr] gap-x-2 gap-y-4">
           <div className="col-span-2 grid grid-cols-subgrid items-center">
             <Label htmlFor="name">氏名</Label>
@@ -79,7 +74,7 @@ export const UserForm = ({ values, onSubmit, onReturn }: Props) => {
           <div className="col-span-2 grid grid-cols-subgrid items-center">
             <Label htmlFor="phone">電話番号</Label>
             <div>
-              <Input id="phone" {...register("phone")} />
+              <Input id="phone" maxLength={11} {...register("phone")} />
               {errors.phone && <p>{errors.phone.message}</p>}
             </div>
           </div>

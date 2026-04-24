@@ -1405,16 +1405,6 @@
         font-family: Montserrat, sans-serif;
         margin: 0;
       } /*!sc*/
-      .nSByO {
-        font-size: 0.929em;
-        line-height: 20px;
-        background-color: #95507c;
-        color: #ffffff;
-        padding: 3px 10px;
-        text-transform: uppercase;
-        font-family: Montserrat, sans-serif;
-        margin: 0;
-      } /*!sc*/
       .kKFqOf {
         font-size: 0.929em;
         line-height: 20px;
@@ -1425,8 +1415,18 @@
         font-family: Montserrat, sans-serif;
         margin: 0;
       } /*!sc*/
+      .nSByO {
+        font-size: 0.929em;
+        line-height: 20px;
+        background-color: #95507c;
+        color: #ffffff;
+        padding: 3px 10px;
+        text-transform: uppercase;
+        font-family: Montserrat, sans-serif;
+        margin: 0;
+      } /*!sc*/
       data-styled.g114[id="sc-eGFuAY"] {
-        content: "ejslkd,kCsPwr,nSByO,kKFqOf,";
+        content: "ejslkd,kCsPwr,kKFqOf,nSByO,";
       } /*!sc*/
       .dplsyJ {
         position: absolute;
@@ -1823,6 +1823,28 @@
                     width="calc(100% - 38px)"
                     class="sc-eIrltV jZTjzp"
                     >新規ユーザー作成</span
+                  ></label
+                >
+              </li>
+              <li
+                tabindex="0"
+                depth="2"
+                data-item-id="operation/deleteAdminUsers"
+                role="menuitem"
+                aria-label="ユーザー削除"
+                aria-expanded="false"
+                class="sc-vjKnv cVgssJ"
+              >
+                <label class="sc-bjMMwc fUjfPA -depth2"
+                  ><span
+                    type="delete"
+                    class="sc-YtoFD FLoTo operation-type delete"
+                    >del</span
+                  ><span
+                    tabindex="0"
+                    width="calc(100% - 38px)"
+                    class="sc-eIrltV jZTjzp"
+                    >ユーザー削除</span
                   ></label
                 >
               </li>
@@ -3474,9 +3496,6 @@
                       >
                         <span class="sc-ieZDjf bEKmDE"></span
                         ><span class="property-name">department</span>
-                        <div class="sc-gUrTyB sc-eKYjSU bPAaet boAHLn">
-                          required
-                        </div>
                       </td>
                       <td class="sc-blLsxE bmauLr">
                         <div>
@@ -3533,9 +3552,6 @@
                       >
                         <span class="sc-ieZDjf bEKmDE"></span
                         ><span class="property-name">phone</span>
-                        <div class="sc-gUrTyB sc-eKYjSU bPAaet boAHLn">
-                          required
-                        </div>
                       </td>
                       <td class="sc-blLsxE bmauLr">
                         <div>
@@ -3595,9 +3611,6 @@
                       >
                         <span class="sc-ieZDjf bEKmDE"></span
                         ><span class="property-name">joinedOn</span>
-                        <div class="sc-gUrTyB sc-eKYjSU bPAaet boAHLn">
-                          required
-                        </div>
                       </td>
                       <td class="sc-blLsxE bmauLr">
                         <div>
@@ -4053,6 +4066,277 @@
             </div>
           </div>
           <div
+            id="operation/deleteAdminUsers"
+            data-section-id="operation/deleteAdminUsers"
+            class="sc-eDDNvO iUTsUN"
+          >
+            <div
+              data-section-id="operation/deleteAdminUsers"
+              id="operation/deleteAdminUsers"
+              class="sc-iAEyYj cmAaWK"
+            >
+              <div class="sc-hLseeT hoYmkG">
+                <h2 class="sc-qRumy bcNKdh">
+                  <a
+                    class="sc-csCMJq jSIqAu"
+                    href="#operation/deleteAdminUsers"
+                    aria-label="operation/deleteAdminUsers"
+                  ></a
+                  >ユーザー削除<!-- -->
+                </h2>
+                <h5 class="sc-irTswZ fA-dGxt">
+                  Request Body schema:
+                  <span class="sc-gXSCqT bzXJk">application/json</span>
+                  <div
+                    class="sc-gUrTyB sc-eKYjSU sc-dVCGSo bPAaet boAHLn iuCmqI"
+                  >
+                    required
+                  </div>
+                </h5>
+                <div html="" class="sc-iKGpAq sc-cCYyou dXXcln dHaogz"></div>
+                <table class="sc-hIqOWV dybric">
+                  <tbody>
+                    <tr class="last">
+                      <td
+                        kind="field"
+                        title="id"
+                        class="sc-hAtEya sc-fGFwA-d kddqHa eIujjv"
+                      >
+                        <span class="sc-ieZDjf bEKmDE"></span
+                        ><span class="property-name">id</span>
+                        <div class="sc-gUrTyB sc-eKYjSU bPAaet boAHLn">
+                          required
+                        </div>
+                      </td>
+                      <td class="sc-blLsxE bmauLr">
+                        <div>
+                          <div>
+                            <span
+                              class="sc-gUrTyB sc-kZGvTq bPAaet UMvzF"
+                            ></span
+                            ><span class="sc-gUrTyB sc-iMfspz bPAaet fEQrHJ"
+                              >number</span
+                            >
+                          </div>
+                          <div>
+                            <div
+                              html=""
+                              class="sc-iKGpAq sc-cCYyou dXXcln cFvDiF"
+                            ></div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div>
+                  <h3 class="sc-fJjTez hsJdXF">Responses</h3>
+                  <div>
+                    <button class="sc-caslwi brztng">
+                      <svg
+                        class="sc-fbJfz iZiZiV"
+                        version="1.1"
+                        viewBox="0 0 24 24"
+                        x="0"
+                        xmlns="http://www.w3.org/2000/svg"
+                        y="0"
+                        aria-hidden="true"
+                      >
+                        <polygon
+                          points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "
+                        ></polygon></svg
+                      ><strong class="sc-fYaxgW jJkGwY">200<!-- --> </strong>
+                      <div
+                        html="&lt;p&gt;ユーザー削除成功&lt;/p&gt;
+"
+                        class="sc-iKGpAq sc-cCYyou sc-cjERFZ dXXcln fTBBlJ dkmSdy"
+                      >
+                        <p>ユーザー削除成功</p>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="sc-jTrPJt sc-gLDzao dVngAA fYLqku">
+                <div class="sc-fYzRkH dHdMVa">
+                  <button class="sc-jYvNnh iWrBta">
+                    <span
+                      type="delete"
+                      class="sc-eGFuAY kKFqOf http-verb delete"
+                      >delete</span
+                    ><span class="sc-GJyyy dkiPkt">/admin/users</span
+                    ><svg
+                      class="sc-fbJfz ivEQut"
+                      style="margin-right: -25px"
+                      version="1.1"
+                      viewBox="0 0 24 24"
+                      x="0"
+                      xmlns="http://www.w3.org/2000/svg"
+                      y="0"
+                      aria-hidden="true"
+                    >
+                      <polygon
+                        points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "
+                      ></polygon>
+                    </svg>
+                  </button>
+                  <div aria-hidden="true" class="sc-fnxdBX dplsyJ">
+                    <div class="sc-llcuoK cNCbuV">
+                      <div
+                        html=""
+                        class="sc-iKGpAq sc-cCYyou dXXcln cFvDiF"
+                      ></div>
+                      <div tabindex="0" role="button">
+                        <div class="sc-jnsZEx eobUac">
+                          <span></span>/admin/users
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <h3 class="sc-kFuwaQ dEbuTz">
+                    <!-- -->Request samples<!-- -->
+                  </h3>
+                  <div class="sc-cyRfQY lbIFgo" data-rttabs="true">
+                    <ul class="react-tabs__tab-list" role="tablist">
+                      <li
+                        class="react-tabs__tab react-tabs__tab--selected"
+                        role="tab"
+                        id="tab_R_2abq_0"
+                        aria-selected="true"
+                        aria-disabled="false"
+                        aria-controls="panel_R_2abq_0"
+                        tabindex="0"
+                        data-rttab="true"
+                      >
+                        Payload
+                      </li>
+                    </ul>
+                    <div
+                      class="react-tabs__tab-panel react-tabs__tab-panel--selected"
+                      role="tabpanel"
+                      id="panel_R_2abq_0"
+                      aria-labelledby="tab_R_2abq_0"
+                    >
+                      <div>
+                        <div class="sc-cPlDXk gpxHhK">
+                          <span class="sc-bCDidX ccmcKc">Content type</span>
+                          <div class="sc-dQelHO eMpCUl">application/json</div>
+                        </div>
+                        <div class="sc-hVkBjf ksuOBo">
+                          <div class="sc-cRZddz iLjyyA">
+                            <div class="sc-gjTGSz btblAa">
+                              <button>
+                                <div class="sc-jegxcw fJsoyS">Copy</div>
+                              </button>
+                            </div>
+                            <div
+                              tabindex="0"
+                              class="sc-iKGpAq dXXcln sc-jMAIzW jKIGwd"
+                            >
+                              <div class="redoc-json">
+                                <code
+                                  ><button
+                                    class="collapser"
+                                    aria-label="collapse"
+                                  ></button
+                                  ><span class="token punctuation">{</span
+                                  ><span class="ellipsis"></span>
+                                  <ul class="obj collapsible">
+                                    <li>
+                                      <div class="hoverable">
+                                        <span class="property token string"
+                                          >"id"</span
+                                        >: <span class="token number">0</span>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                  <span class="token punctuation">}</span></code
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <h3 class="sc-kFuwaQ dEbuTz">
+                    <!-- -->Response samples<!-- -->
+                  </h3>
+                  <div class="sc-cyRfQY lbIFgo" data-rttabs="true">
+                    <ul class="react-tabs__tab-list" role="tablist">
+                      <li
+                        class="tab-success react-tabs__tab--selected"
+                        role="tab"
+                        id="tab_R_2ebq_0"
+                        aria-selected="true"
+                        aria-disabled="false"
+                        aria-controls="panel_R_2ebq_0"
+                        tabindex="0"
+                        data-rttab="true"
+                      >
+                        200
+                      </li>
+                    </ul>
+                    <div
+                      class="react-tabs__tab-panel react-tabs__tab-panel--selected"
+                      role="tabpanel"
+                      id="panel_R_2ebq_0"
+                      aria-labelledby="tab_R_2ebq_0"
+                    >
+                      <div>
+                        <div class="sc-cPlDXk gpxHhK">
+                          <span class="sc-bCDidX ccmcKc">Content type</span>
+                          <div class="sc-dQelHO eMpCUl">application/json</div>
+                        </div>
+                        <div class="sc-hVkBjf ksuOBo">
+                          <div class="sc-cRZddz iLjyyA">
+                            <div class="sc-gjTGSz btblAa">
+                              <button>
+                                <div class="sc-jegxcw fJsoyS">Copy</div>
+                              </button>
+                            </div>
+                            <div
+                              tabindex="0"
+                              class="sc-iKGpAq dXXcln sc-jMAIzW jKIGwd"
+                            >
+                              <div class="redoc-json">
+                                <code
+                                  ><button
+                                    class="collapser"
+                                    aria-label="collapse"
+                                  ></button
+                                  ><span class="token punctuation">{</span
+                                  ><span class="ellipsis"></span>
+                                  <ul class="obj collapsible">
+                                    <li>
+                                      <div class="hoverable">
+                                        <span class="property token string"
+                                          >"message"</span
+                                        >:
+                                        <span class="token string"
+                                          >&quot;string&quot;</span
+                                        >
+                                      </div>
+                                    </li>
+                                  </ul>
+                                  <span class="token punctuation">}</span></code
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
             id="operation/putAdminUser"
             data-section-id="operation/putAdminUser"
             class="sc-eDDNvO iUTsUN"
@@ -4163,9 +4447,6 @@
                       >
                         <span class="sc-ieZDjf bEKmDE"></span
                         ><span class="property-name">department</span>
-                        <div class="sc-gUrTyB sc-eKYjSU bPAaet boAHLn">
-                          required
-                        </div>
                       </td>
                       <td class="sc-blLsxE bmauLr">
                         <div>
@@ -4222,9 +4503,6 @@
                       >
                         <span class="sc-ieZDjf bEKmDE"></span
                         ><span class="property-name">phone</span>
-                        <div class="sc-gUrTyB sc-eKYjSU bPAaet boAHLn">
-                          required
-                        </div>
                       </td>
                       <td class="sc-blLsxE bmauLr">
                         <div>
@@ -4284,9 +4562,6 @@
                       >
                         <span class="sc-ieZDjf bEKmDE"></span
                         ><span class="property-name">joinedOn</span>
-                        <div class="sc-gUrTyB sc-eKYjSU bPAaet boAHLn">
-                          required
-                        </div>
                       </td>
                       <td class="sc-blLsxE bmauLr">
                         <div>
@@ -4423,10 +4698,10 @@
                       <li
                         class="react-tabs__tab react-tabs__tab--selected"
                         role="tab"
-                        id="tab_R_2abq_0"
+                        id="tab_R_2aca_0"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="panel_R_2abq_0"
+                        aria-controls="panel_R_2aca_0"
                         tabindex="0"
                         data-rttab="true"
                       >
@@ -4436,8 +4711,8 @@
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="panel_R_2abq_0"
-                      aria-labelledby="tab_R_2abq_0"
+                      id="panel_R_2aca_0"
+                      aria-labelledby="tab_R_2aca_0"
                     >
                       <div>
                         <div class="sc-cPlDXk gpxHhK">
@@ -4580,10 +4855,10 @@
                       <li
                         class="tab-success react-tabs__tab--selected"
                         role="tab"
-                        id="tab_R_2ebq_0"
+                        id="tab_R_2eca_0"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="panel_R_2ebq_0"
+                        aria-controls="panel_R_2eca_0"
                         tabindex="0"
                         data-rttab="true"
                       >
@@ -4593,8 +4868,8 @@
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="panel_R_2ebq_0"
-                      aria-labelledby="tab_R_2ebq_0"
+                      id="panel_R_2eca_0"
+                      aria-labelledby="tab_R_2eca_0"
                     >
                       <div>
                         <div class="sc-cPlDXk gpxHhK">
@@ -4875,10 +5150,10 @@
                       <li
                         class="tab-success react-tabs__tab--selected"
                         role="tab"
-                        id="tab_R_2eca_0"
+                        id="tab_R_2ecq_0"
                         aria-selected="true"
                         aria-disabled="false"
-                        aria-controls="panel_R_2eca_0"
+                        aria-controls="panel_R_2ecq_0"
                         tabindex="0"
                         data-rttab="true"
                       >
@@ -4888,8 +5163,8 @@
                     <div
                       class="react-tabs__tab-panel react-tabs__tab-panel--selected"
                       role="tabpanel"
-                      id="panel_R_2eca_0"
-                      aria-labelledby="tab_R_2eca_0"
+                      id="panel_R_2ecq_0"
+                      aria-labelledby="tab_R_2ecq_0"
                     >
                       <div>
                         <div class="sc-cPlDXk gpxHhK">
@@ -5131,14 +5406,7 @@
                               },
                             },
                           },
-                          required: [
-                            "name",
-                            "department",
-                            "phone",
-                            "email",
-                            "joinedOn",
-                            "roles",
-                          ],
+                          required: ["name", "email", "roles"],
                         },
                       },
                     },
@@ -5149,6 +5417,36 @@
                       content: {
                         "application/json": {
                           schema: { $ref: "#/components/schemas/User" },
+                        },
+                      },
+                    },
+                  },
+                },
+                delete: {
+                  operationId: "deleteAdminUsers",
+                  summary: "ユーザー削除",
+                  requestBody: {
+                    required: true,
+                    content: {
+                      "application/json": {
+                        schema: {
+                          type: "object",
+                          properties: { id: { type: "number" } },
+                          required: ["id"],
+                        },
+                      },
+                    },
+                  },
+                  responses: {
+                    200: {
+                      description: "ユーザー削除成功",
+                      content: {
+                        "application/json": {
+                          schema: {
+                            type: "object",
+                            properties: { message: { type: "string" } },
+                            required: ["message"],
+                          },
                         },
                       },
                     },
@@ -5187,14 +5485,7 @@
                               },
                             },
                           },
-                          required: [
-                            "name",
-                            "department",
-                            "phone",
-                            "email",
-                            "joinedOn",
-                            "roles",
-                          ],
+                          required: ["name", "email", "roles"],
                         },
                       },
                     },
@@ -5272,6 +5563,7 @@
                     "id",
                     "name",
                     "department",
+                    "jobTitle",
                     "phone",
                     "email",
                     "joinedOn",
@@ -5290,6 +5582,7 @@
             "operation/authMe",
             "operation/getAdminUsers",
             "operation/postAdminUser",
+            "operation/deleteAdminUsers",
             "operation/putAdminUser",
             "operation/deleteAdminUser",
           ],
@@ -5297,45 +5590,56 @@
             version: "2.3.9",
             fields: ["title", "description"],
             fieldVectors: [
-              ["title/0", [0, 0.182]],
-              ["description/0", [1, 1.792]],
-              ["title/1", [0, 0.182]],
-              ["description/1", [2, 1.792]],
-              ["title/2", [0, 0.182]],
-              ["description/2", [3, 1.792]],
-              ["title/3", [0, 0.182]],
-              ["description/3", [4, 1.792]],
-              ["title/4", [0, 0.182]],
-              ["description/4", [5, 1.281]],
-              ["title/5", [0, 0.182]],
-              ["description/5", [5, 1.281]],
-              ["title/6", [6, 1.792]],
-              ["description/6", [7, 1.281]],
-              ["title/7", [0, 0.182]],
-              ["description/7", [7, 1.281]],
+              ["title/0", [0, 0.163]],
+              ["description/0", [1, 1.897]],
+              ["title/1", [0, 0.163]],
+              ["description/1", [2, 1.897]],
+              ["title/2", [0, 0.163]],
+              ["description/2", [3, 1.897]],
+              ["title/3", [0, 0.163]],
+              ["description/3", [4, 1.897]],
+              ["title/4", [0, 0.163]],
+              ["description/4", [5, 1.05]],
+              ["title/5", [0, 0.163]],
+              ["description/5", [5, 1.05]],
+              ["title/6", [0, 0.163]],
+              ["description/6", [5, 1.05]],
+              ["title/7", [6, 1.897]],
+              ["description/7", [7, 1.386]],
+              ["title/8", [0, 0.163]],
+              ["description/8", [7, 1.386]],
             ],
             invertedIndex: [
               [
                 "",
                 {
                   _index: 0,
-                  title: { 0: {}, 1: {}, 2: {}, 3: {}, 4: {}, 5: {}, 7: {} },
+                  title: {
+                    0: {},
+                    1: {},
+                    2: {},
+                    3: {},
+                    4: {},
+                    5: {},
+                    6: {},
+                    8: {},
+                  },
                   description: {},
                 },
               ],
               [
                 "admin/us",
-                { _index: 5, title: {}, description: { 4: {}, 5: {} } },
+                { _index: 5, title: {}, description: { 4: {}, 5: {}, 6: {} } },
               ],
               [
                 "admin/users/{id",
-                { _index: 7, title: {}, description: { 6: {}, 7: {} } },
+                { _index: 7, title: {}, description: { 7: {}, 8: {} } },
               ],
               ["auth/login", { _index: 1, title: {}, description: { 0: {} } }],
               ["auth/logout", { _index: 2, title: {}, description: { 1: {} } }],
               ["auth/m", { _index: 4, title: {}, description: { 3: {} } }],
               ["auth/signin", { _index: 3, title: {}, description: { 2: {} } }],
-              ["putadminus", { _index: 6, title: { 6: {} }, description: {} }],
+              ["putadminus", { _index: 6, title: { 7: {} }, description: {} }],
             ],
             pipeline: [],
           },
