@@ -31,6 +31,12 @@ export interface MyData {
   roles: MyDataRolesItem[];
 }
 
+export type PutMyDataBody = {
+  name: string;
+  phone?: string;
+  email: string;
+};
+
 export type PutMyDataPasswordBody = {
   password: string;
   newPassword: string;
@@ -78,6 +84,54 @@ export const useGetMyData = <TError = AxiosError<unknown>>(options?: {
     swrFn,
     swrOptions,
   );
+
+  return {
+    swrKey,
+    ...query,
+  };
+};
+
+/**
+ * @summary マイデータ更新
+ */
+export const putMyData = (
+  putMyDataBody: PutMyDataBody,
+  options?: AxiosRequestConfig,
+): Promise<AxiosResponse<MyData>> => {
+  return axios.put(`/api/my-data`, putMyDataBody, options);
+};
+
+export const getPutMyDataMutationFetcher = (options?: AxiosRequestConfig) => {
+  return (_: Key, { arg }: { arg: PutMyDataBody }) => {
+    return putMyData(arg, options);
+  };
+};
+export const getPutMyDataMutationKey = () => [`/api/my-data`] as const;
+
+export type PutMyDataMutationResult = NonNullable<
+  Awaited<ReturnType<typeof putMyData>>
+>;
+export type PutMyDataMutationError = AxiosError<unknown>;
+
+/**
+ * @summary マイデータ更新
+ */
+export const usePutMyData = <TError = AxiosError<unknown>>(options?: {
+  swr?: SWRMutationConfiguration<
+    Awaited<ReturnType<typeof putMyData>>,
+    TError,
+    Key,
+    PutMyDataBody,
+    Awaited<ReturnType<typeof putMyData>>
+  > & { swrKey?: string };
+  axios?: AxiosRequestConfig;
+}) => {
+  const { swr: swrOptions, axios: axiosOptions } = options ?? {};
+
+  const swrKey = swrOptions?.swrKey ?? getPutMyDataMutationKey();
+  const swrFn = getPutMyDataMutationFetcher(axiosOptions);
+
+  const query = useSWRMutation(swrKey, swrFn, swrOptions);
 
   return {
     swrKey,
