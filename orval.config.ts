@@ -7,10 +7,8 @@ export default defineConfig({
       target: "./orval/auth.ts",
       client: "swr",
       baseUrl: "/api",
-    },
-    hooks: {
-      // TODO: 調べて修正。ファイル全体にprettierがかかっている
-      afterAllFilesWrite: "npm run lint:prettier",
+      // TODO: テンプレートにも反映
+      prettier: true,
     },
   },
   adminUsers: {
@@ -19,9 +17,7 @@ export default defineConfig({
       target: "./orval/adminUsers.ts",
       client: "swr",
       baseUrl: "/api",
-    },
-    hooks: {
-      afterAllFilesWrite: "npm run lint:prettier",
+      prettier: true,
     },
   },
 });
