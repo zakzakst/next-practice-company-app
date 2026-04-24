@@ -163,10 +163,7 @@ paths:
                       - admin
               required:
                 - name
-                - department
-                - phone
                 - email
-                - joinedOn
                 - roles
       responses:
         "201":
@@ -175,6 +172,32 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
+    delete:
+      operationId: deleteAdminUsers
+      summary: ユーザー削除
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: number
+              required:
+                - id
+      responses:
+        "200":
+          description: ユーザー削除成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
   /admin/users/{id}:
     put:
       operationId: putAdminUser
@@ -212,10 +235,7 @@ paths:
                       - admin
               required:
                 - name
-                - department
-                - phone
                 - email
-                - joinedOn
                 - roles
       responses:
         "200":
@@ -298,6 +318,7 @@ components:
         - id
         - name
         - department
+        - jobTitle
         - phone
         - email
         - joinedOn

@@ -12,19 +12,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
 
-// TODO: 任意項目について、空欄を許容するパターンをどう実装するか調べて対応する
 export const formSchema = z.object({
   name: z.string().min(1, { error: "氏名は入力必須項目です" }),
   department: z.string(),
   jobTitle: z.string(),
   phone: z
     .string()
-    .regex(/^[0-9]$/, { error: "半角数字で入力してください" })
-    .min(10, { error: "有効な電話番号を入力してください" })
-    .max(11, { error: "有効な電話番号を入力してください" }),
+    .or(z.literal(""))
+    .refine((val) => val === "" || /^[0-9]{10,11}$/.test(val), {
+      message: "有効な電話番号を入力してください",
+    }),
   email: z.email({ error: "有効なメールアドレスを入力してください" }),
-  joinedOn: z.date(),
-  roles: z.enum(UserRolesItems),
+  joinedOn: z.date().optional(),
+  roles: z.enum(UserRolesItems).optional(),
 });
 
 export type FormValues = z.infer<typeof formSchema>;
@@ -40,20 +40,15 @@ export const UserForm = ({ values, onSubmit, onReturn }: Props) => {
     register,
     handleSubmit,
     control,
-    watch,
-    formState: { isValid, errors },
+    formState: { isValid, isDirty, errors },
   } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: values,
-    mode: "onBlur",
   });
-
-  const test = watch();
 
   return (
     <Card>
       <CardContent>
-        <div>{JSON.stringify(test)}</div>
         <div className="grid grid-cols-[max-content_1fr] gap-x-2 gap-y-4">
           <div className="col-span-2 grid grid-cols-subgrid items-center">
             <Label htmlFor="name">氏名</Label>
@@ -79,7 +74,7 @@ export const UserForm = ({ values, onSubmit, onReturn }: Props) => {
           <div className="col-span-2 grid grid-cols-subgrid items-center">
             <Label htmlFor="phone">電話番号</Label>
             <div>
-              <Input id="phone" {...register("phone")} />
+              <Input id="phone" maxLength={11} {...register("phone")} />
               {errors.phone && <p>{errors.phone.message}</p>}
             </div>
           </div>
@@ -119,7 +114,9 @@ export const UserForm = ({ values, onSubmit, onReturn }: Props) => {
                     <ItemSelect<UserRolesItem>
                       items={UserRolesWithLabelItems}
                       defaultValue={field.value}
-                      onChange={(item) => field.onChange(item.id)}
+                      onChange={(item) => {
+                        field.onChange(item.id);
+                      }}
                     />
                     {error && <p>{error.message}</p>}
                   </>
@@ -134,7 +131,8 @@ export const UserForm = ({ values, onSubmit, onReturn }: Props) => {
           <Button
             size="lg"
             onClick={handleSubmit((values) => onSubmit(values))}
-            disabled={!isValid}
+            // TODO: テンプレートにも反映（mode onBlur ではなくisDirtyとの組み合わせを利用する）
+            disabled={isDirty && !isValid}
           >
             送信
           </Button>
