@@ -250,6 +250,56 @@ export const useDeleteAdminUsers = <TError = AxiosError<unknown>>(options?: {
   };
 };
 
+/**
+ * @summary ユーザー情報取得
+ */
+export const getAdminUser = (
+  id: number,
+  options?: AxiosRequestConfig,
+): Promise<AxiosResponse<User>> => {
+  return axios.get(`/api/admin/users/${id}`, options);
+};
+
+export const getGetAdminUserKey = (id: number) =>
+  [`/api/admin/users/${id}`] as const;
+
+export type GetAdminUserQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getAdminUser>>
+>;
+export type GetAdminUserQueryError = AxiosError<unknown>;
+
+/**
+ * @summary ユーザー情報取得
+ */
+export const useGetAdminUser = <TError = AxiosError<unknown>>(
+  id: number,
+  options?: {
+    swr?: SWRConfiguration<Awaited<ReturnType<typeof getAdminUser>>, TError> & {
+      swrKey?: Key;
+      enabled?: boolean;
+    };
+    axios?: AxiosRequestConfig;
+  },
+) => {
+  const { swr: swrOptions, axios: axiosOptions } = options ?? {};
+
+  const isEnabled = swrOptions?.enabled !== false && !!id;
+  const swrKey =
+    swrOptions?.swrKey ?? (() => (isEnabled ? getGetAdminUserKey(id) : null));
+  const swrFn = () => getAdminUser(id, axiosOptions);
+
+  const query = useSwr<Awaited<ReturnType<typeof swrFn>>, TError>(
+    swrKey,
+    swrFn,
+    swrOptions,
+  );
+
+  return {
+    swrKey,
+    ...query,
+  };
+};
+
 export const putAdminUser = (
   id: number,
   putAdminUserBody: PutAdminUserBody,
