@@ -8,6 +8,7 @@ import {
   DeleteAdminUsers200,
   DeleteAdminUsersBody,
   GetAdminUsers200,
+  PostAdminUserBody,
   User,
 } from "@/orval/adminUsers";
 import lodash from "lodash";
@@ -72,6 +73,62 @@ export const GET = withErrorHandler(
       page: pageNum,
       users: limitedData,
     });
+  },
+);
+
+export const POST = withErrorHandler(
+  async (request: NextRequest): Promise<NextResponse<User>> => {
+    await apiDelay();
+
+    // === 権限の確認 ===
+    const jwtPayload = await getJwtPayload();
+    if (!jwtPayload?.roles.includes("admin")) {
+      throw new ApiError(401, "実行権限がありません", "UNAUTHORIZED");
+    }
+
+    // === 認証情報の確認 ===
+    const params: PostAdminUserBody = await request.json();
+    const auth = dbAuths.find((a) => a.email === params.email);
+    if (auth) {
+      throw new ApiError(
+        401,
+        "このメールアドレスは既に登録されています",
+        "UNAUTHORIZED",
+      );
+    }
+
+    // === 作成実行 ===
+    const user: User = {
+      id: dbUsers.length + 1,
+      name: params.name,
+      department: params.department || "",
+      jobTitle: params.jobTitle || "",
+      phone: params.phone || "",
+      email: params.email,
+      joinedOn: params.joinedOn || "",
+      roles: params.roles,
+    };
+    dbAuths.push({
+      id: dbAuths.length + 1,
+      email: user.email,
+      // TODO: 初期パスワードとしてランダムな文字列を生成する
+      password: "password",
+      roles: user.roles,
+      lastLoginAt: "",
+    });
+    dbUsers.push({
+      id: user.id,
+      name: user.name,
+      department: user.department,
+      jobTitle: user.jobTitle,
+      phone: user.phone,
+      email: user.email,
+      joinedOn: user.joinedOn,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    });
+
+    return NextResponse.json(user);
   },
 );
 

@@ -1,0 +1,23 @@
+info:
+  name: ユーザー作成
+  type: http
+  seq: 5
+
+http:
+  method: POST
+  url: http://localhost:3000/api/admin/users
+  body:
+    type: json
+    data: |-
+      {
+        "name": "吉田 三郎",
+        "email": "yoshida@example.com",
+        "roles": ["user"]
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

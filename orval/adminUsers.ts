@@ -23,7 +23,7 @@ export interface User {
   id: number;
   name: string;
   department: string;
-  jobTitle?: string;
+  jobTitle: string;
   phone: string;
   email: string;
   joinedOn: string;
@@ -53,11 +53,11 @@ export const PostAdminUserBodyRolesItem = {
 
 export type PostAdminUserBody = {
   name: string;
-  department: string;
+  department?: string;
   jobTitle?: string;
-  phone: string;
+  phone?: string;
   email: string;
-  joinedOn: string;
+  joinedOn?: string;
   roles: PostAdminUserBodyRolesItem[];
 };
 
@@ -80,11 +80,11 @@ export const PutAdminUserBodyRolesItem = {
 
 export type PutAdminUserBody = {
   name: string;
-  department: string;
+  department?: string;
   jobTitle?: string;
-  phone: string;
+  phone?: string;
   email: string;
-  joinedOn: string;
+  joinedOn?: string;
   roles: PutAdminUserBodyRolesItem[];
 };
 

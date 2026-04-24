@@ -6,6 +6,7 @@ import { ApiError, apiDelay, withErrorHandler } from "@/lib/api";
 import { getJwtPayload } from "@/lib/jwt";
 import { DeleteAdminUser204 } from "@/orval/adminUsers";
 
+// NOTE: orvalとの連携の兼ね合いで、こちらのDELETEは利用しない
 export const DELETE = withErrorHandler(
   async (
     _request: NextRequest,
