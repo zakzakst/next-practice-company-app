@@ -132,6 +132,7 @@ export const UserForm = ({ values, onSubmit, onReturn }: Props) => {
             size="lg"
             onClick={handleSubmit((values) => onSubmit(values))}
             // TODO: テンプレートにも反映（mode onBlur ではなくisDirtyとの組み合わせを利用する）
+            // ⇒ やはりちゃんと調べてから組み合わせ再度考える。mode onChange を利用するのもいいかもと感じた
             disabled={isDirty && !isValid}
           >
             送信

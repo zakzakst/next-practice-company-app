@@ -8,6 +8,8 @@ import axios from "axios";
 import type { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import useSwr from "swr";
 import type { Key, SWRConfiguration } from "swr";
+import useSWRMutation from "swr/mutation";
+import type { SWRMutationConfiguration } from "swr/mutation";
 
 export type MyDataRolesItem =
   (typeof MyDataRolesItem)[keyof typeof MyDataRolesItem];
@@ -28,6 +30,15 @@ export interface MyData {
   joinedOn: string;
   roles: MyDataRolesItem[];
 }
+
+export type PutMyDataPasswordBody = {
+  password: string;
+  newPassword: string;
+};
+
+export type PutMyDataPassword200 = {
+  message: string;
+};
 
 /**
  * @summary マイデータ取得
@@ -67,6 +78,57 @@ export const useGetMyData = <TError = AxiosError<unknown>>(options?: {
     swrFn,
     swrOptions,
   );
+
+  return {
+    swrKey,
+    ...query,
+  };
+};
+
+/**
+ * @summary パスワード更新
+ */
+export const putMyDataPassword = (
+  putMyDataPasswordBody: PutMyDataPasswordBody,
+  options?: AxiosRequestConfig,
+): Promise<AxiosResponse<PutMyDataPassword200>> => {
+  return axios.put(`/api/my-data/password`, putMyDataPasswordBody, options);
+};
+
+export const getPutMyDataPasswordMutationFetcher = (
+  options?: AxiosRequestConfig,
+) => {
+  return (_: Key, { arg }: { arg: PutMyDataPasswordBody }) => {
+    return putMyDataPassword(arg, options);
+  };
+};
+export const getPutMyDataPasswordMutationKey = () =>
+  [`/api/my-data/password`] as const;
+
+export type PutMyDataPasswordMutationResult = NonNullable<
+  Awaited<ReturnType<typeof putMyDataPassword>>
+>;
+export type PutMyDataPasswordMutationError = AxiosError<unknown>;
+
+/**
+ * @summary パスワード更新
+ */
+export const usePutMyDataPassword = <TError = AxiosError<unknown>>(options?: {
+  swr?: SWRMutationConfiguration<
+    Awaited<ReturnType<typeof putMyDataPassword>>,
+    TError,
+    Key,
+    PutMyDataPasswordBody,
+    Awaited<ReturnType<typeof putMyDataPassword>>
+  > & { swrKey?: string };
+  axios?: AxiosRequestConfig;
+}) => {
+  const { swr: swrOptions, axios: axiosOptions } = options ?? {};
+
+  const swrKey = swrOptions?.swrKey ?? getPutMyDataPasswordMutationKey();
+  const swrFn = getPutMyDataPasswordMutationFetcher(axiosOptions);
+
+  const query = useSWRMutation(swrKey, swrFn, swrOptions);
 
   return {
     swrKey,

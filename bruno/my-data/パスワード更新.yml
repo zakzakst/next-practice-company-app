@@ -1,0 +1,22 @@
+info:
+  name: パスワード更新
+  type: http
+  seq: 2
+
+http:
+  method: PUT
+  url: http://localhost:3000/api/my-data/password
+  body:
+    type: json
+    data: |-
+      {
+        "password": "password123",
+        "newPassword": "newpassword"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

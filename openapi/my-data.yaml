@@ -17,6 +17,35 @@ paths:
               schema:
                 $ref: "#/components/schemas/MyData"
 
+  /my-data/password:
+    # パスワード更新
+    put:
+      operationId: putMyDataPassword
+      summary: パスワード更新
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                newPassword:
+                  type: string
+              required: ["password", "newPassword"]
+      responses:
+        "200":
+          description: パスワード更新
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required: ["message"]
+
 components:
   schemas:
     MyData:
