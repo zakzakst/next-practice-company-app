@@ -1,0 +1,23 @@
+info:
+  name: マイデータ更新
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: http://localhost:3000/api/my-data
+  body:
+    type: json
+    data: |-
+      {
+        "name": "更新 氏名",
+        "email": "new@example.com",
+        "phone": "08000009999"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

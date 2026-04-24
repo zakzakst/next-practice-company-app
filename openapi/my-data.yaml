@@ -11,7 +11,33 @@ paths:
       summary: マイデータ取得
       responses:
         "200":
-          description: ユーザー情報一覧取得成功
+          description: マイデータ取得成功
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MyData"
+
+    # マイデータ更新
+    put:
+      operationId: putMyData
+      summary: マイデータ更新
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                phone:
+                  type: string
+                email:
+                  type: string
+              required: ["name", "email"]
+      responses:
+        "200":
+          description: マイデータ更新成功
           content:
             application/json:
               schema:
