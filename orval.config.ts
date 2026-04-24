@@ -32,4 +32,13 @@ export default defineConfig({
       prettier: true,
     },
   },
+  attendances: {
+    input: "./openapi/attendances.yaml",
+    output: {
+      target: "./orval/attendances.ts",
+      client: "swr",
+      baseUrl: "/api",
+      prettier: true,
+    },
+  },
 });
