@@ -18,6 +18,7 @@ export const AttendanceType = {
   onLeave: "onLeave",
   leftEarly: "leftEarly",
   other: "other",
+  holiday: "holiday",
 } as const;
 
 export interface Attendance {

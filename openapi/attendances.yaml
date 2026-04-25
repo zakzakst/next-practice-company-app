@@ -45,7 +45,7 @@ components:
           type: string
         type:
           type: string
-          enum: ["working", "onLeave", "leftEarly", "other"]
+          enum: ["working", "onLeave", "leftEarly", "other", "holiday"]
         note:
           type: string
       required: ["date", "clockIn", "clockOut", "break", "type", "note"]
