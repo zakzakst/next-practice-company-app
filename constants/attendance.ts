@@ -24,7 +24,19 @@ export const AttendanceTypeWithLabels: AttendanceTypeWithLabel[] = [
     label: "早退",
   },
   {
+    id: "holiday",
+    label: "休日",
+  },
+  {
     id: "other",
     label: "その他",
   },
 ];
+
+export const getAttendanceTypeLabel = (
+  id: AttendanceTypeWithLabel["id"] | undefined,
+): AttendanceTypeWithLabel["label"] | undefined => {
+  if (!id) return undefined;
+  const attendance = AttendanceTypeWithLabels.find((a) => a.id === id);
+  return attendance?.label;
+};

@@ -80,7 +80,7 @@ const Page = () => {
         </Card>
       </div>
       <div className="mt-4">
-        <AttendancesList attendances={attendances} />
+        <AttendancesList attendances={attendances} onClickEdit={() => {}} />
       </div>
     </div>
   );
