@@ -8,7 +8,7 @@ export const AttendanceTypes: AttendanceType[] = [
   "other",
 ];
 
-type AttendanceTypeWithLabel = WithLabelItem<AttendanceType>;
+export type AttendanceTypeWithLabel = WithLabelItem<AttendanceType>;
 
 export const AttendanceTypeWithLabels: AttendanceTypeWithLabel[] = [
   {
@@ -32,11 +32,3 @@ export const AttendanceTypeWithLabels: AttendanceTypeWithLabel[] = [
     label: "その他",
   },
 ];
-
-export const getAttendanceTypeLabel = (
-  id: AttendanceTypeWithLabel["id"] | undefined,
-): AttendanceTypeWithLabel["label"] | undefined => {
-  if (!id) return undefined;
-  const attendance = AttendanceTypeWithLabels.find((a) => a.id === id);
-  return attendance?.label;
-};
