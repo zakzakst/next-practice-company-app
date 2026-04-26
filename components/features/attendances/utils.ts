@@ -1,3 +1,5 @@
+// NOTE: AI利用を頭に置いたときに、ロジックを分離してテストしやすくすることが求められると感じる。
+// そのうえで悩ましいのは、「そのロジック群をどこに置くのか？」かなとも感じる。一旦各features区切りで作成してみる
 import {
   AttendanceTypeWithLabel,
   AttendanceTypeWithLabels,
