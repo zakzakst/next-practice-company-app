@@ -1,7 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
-
+import { getAttendanceTypeLabel } from "../utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import {
@@ -12,37 +11,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getAttendanceTypeLabel } from "@/constants/attendance";
 import { cn } from "@/lib/utils";
 import { Attendance } from "@/orval/attendances";
-import { addDays, endOfMonth, format, isSameDay, startOfMonth } from "date-fns";
+import { format, isSameDay } from "date-fns";
 import { ja } from "date-fns/locale";
-
-const generateCalendar = (currentMonth: Date): Date[] => {
-  const startDate = startOfMonth(currentMonth);
-  const endDate = endOfMonth(currentMonth);
-
-  const dates: Date[] = [];
-  let date = startDate;
-  while (date <= endDate) {
-    dates.push(date);
-    date = addDays(date, 1);
-  }
-
-  return dates;
-};
 
 type Props = {
   attendances: Attendance[];
+  dates: Date[];
   onClickEdit: () => void;
 };
 
-export const AttendancesList = ({ attendances, onClickEdit }: Props) => {
-  const dates = useMemo<Date[]>(() => {
-    const thisMonth = new Date();
-    return generateCalendar(thisMonth);
-  }, []);
-
+export const AttendancesList = ({ attendances, dates, onClickEdit }: Props) => {
   return (
     <Card>
       <CardContent>

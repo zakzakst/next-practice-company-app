@@ -1,4 +1,14 @@
+"use client";
+
+import { useMemo, useState } from "react";
+
 import { AttendancesList } from "@/components/features/attendances/AttendancesList";
+import {
+  generateCalendar,
+  getAttendancesAverage,
+  getAttendancesEmptyCount,
+  getAttendancesSum,
+} from "@/components/features/attendances/utils";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Select,
@@ -8,8 +18,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Attendance } from "@/orval/attendances";
-
-const months: string[] = ["202501", "202502", "202503"];
 
 const attendances: Attendance[] = [
   {
@@ -30,22 +38,27 @@ const attendances: Attendance[] = [
   },
 ];
 
-const Data = {
-  months,
-  attendances,
-};
-
 const Page = () => {
+  const [month, setMonth] = useState<Date>(new Date());
+
+  const months = useMemo<string[]>(() => {
+    return ["202501", "202502", "202503"];
+  }, []);
+
+  const dates = useMemo<Date[]>(() => {
+    return generateCalendar(month);
+  }, [month]);
+
   return (
     <div>
       <h1 className="text-2xl font-bold">勤怠管理</h1>
       <div className="mt-4">
-        <Select defaultValue={Data.months[0]}>
+        <Select defaultValue={months[0]}>
           <SelectTrigger className="w-45">
             <SelectValue placeholder="確認する月を選択してください" />
           </SelectTrigger>
           <SelectContent>
-            {Data.months.map((month) => (
+            {months.map((month) => (
               <SelectItem key={month} value={month}>
                 {month}
               </SelectItem>
@@ -58,7 +71,10 @@ const Page = () => {
           <CardContent>
             <p>月合計時間</p>
             <p>
-              <span className="text-xl font-bold">142</span>h
+              <span className="text-xl font-bold">
+                {getAttendancesSum(attendances)}
+              </span>
+              h
             </p>
           </CardContent>
         </Card>
@@ -66,7 +82,10 @@ const Page = () => {
           <CardContent>
             <p>平均勤務時間</p>
             <p>
-              <span className="text-xl font-bold">7.9</span>h/日
+              <span className="text-xl font-bold">
+                {getAttendancesAverage(attendances)}
+              </span>
+              h/日
             </p>
           </CardContent>
         </Card>
@@ -74,13 +93,20 @@ const Page = () => {
           <CardContent>
             <p>未入力日</p>
             <p>
-              <span className="text-xl font-bold">3</span>日
+              <span className="text-xl font-bold">
+                {getAttendancesEmptyCount(attendances, dates)}
+              </span>
+              日
             </p>
           </CardContent>
         </Card>
       </div>
       <div className="mt-4">
-        <AttendancesList attendances={attendances} onClickEdit={() => {}} />
+        <AttendancesList
+          attendances={attendances}
+          dates={dates}
+          onClickEdit={() => {}}
+        />
       </div>
     </div>
   );
