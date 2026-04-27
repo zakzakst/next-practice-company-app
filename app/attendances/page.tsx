@@ -1,6 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
+
+import { useRouter } from "next/navigation";
 
 import { AttendancesList } from "@/components/features/attendances/AttendancesList";
 import {
@@ -9,44 +11,70 @@ import {
   getAttendancesEmptyCount,
   getAttendancesTotal,
 } from "@/components/features/attendances/utils";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { useGetAttendances } from "@/orval/attendances";
+import { addMonths, format, isSameMonth } from "date-fns";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const Page = () => {
+  const router = useRouter();
   const [month, setMonth] = useState<Date>(new Date());
-  const { data } = useGetAttendances();
 
-  const months = useMemo<string[]>(() => {
-    return ["202501", "202502", "202503"];
-  }, []);
+  const monthParam = useMemo<string>(() => {
+    return format(month, "yyyy-MM");
+  }, [month]);
+
+  const { data } = useGetAttendances({
+    month: monthParam,
+  });
 
   const dates = useMemo<Date[]>(() => {
     return generateCalendar(month);
   }, [month]);
 
+  const isCurrentMonth = useMemo<boolean>(() => {
+    return isSameMonth(month, new Date());
+  }, [month]);
+
+  const changeMonth = useCallback(
+    (type: "prev" | "next") => {
+      if (type === "prev") {
+        const newMonth = addMonths(month, -1);
+        setMonth(newMonth);
+      }
+      if (type === "next") {
+        const newMonth = addMonths(month, 1);
+        setMonth(newMonth);
+      }
+    },
+    [month, setMonth],
+  );
+
+  const goToEditPage = useCallback(() => {
+    router.push(`/attendances/edit?month=${format(month, "yyyy-MM")}`);
+  }, [month, router]);
+
   return (
     <div>
       <h1 className="text-2xl font-bold">勤怠管理</h1>
-      <div className="mt-4">
-        <Select defaultValue={months[0]}>
-          <SelectTrigger className="w-45">
-            <SelectValue placeholder="確認する月を選択してください" />
-          </SelectTrigger>
-          <SelectContent>
-            {months.map((month) => (
-              <SelectItem key={month} value={month}>
-                {month}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+      <div className="mt-4 flex items-center gap-2">
+        <Button
+          size="icon-sm"
+          variant="outline"
+          onClick={() => changeMonth("prev")}
+        >
+          <ChevronLeft />
+        </Button>
+        {format(month, "yyyy年MM月")}
+        <Button
+          size="icon-sm"
+          variant="outline"
+          onClick={() => changeMonth("next")}
+          disabled={isCurrentMonth}
+        >
+          <ChevronRight />
+        </Button>
       </div>
       {data?.data && (
         <>
@@ -89,7 +117,7 @@ const Page = () => {
             <AttendancesList
               attendances={data.data.attendances}
               dates={dates}
-              onClickEdit={() => {}}
+              onClickEdit={goToEditPage}
             />
           </div>
         </>
