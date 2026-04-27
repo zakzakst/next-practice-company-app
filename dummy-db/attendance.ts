@@ -1,6 +1,6 @@
 import { AttendanceEntity } from "@/types/entities/attendance";
 
-export const attendances: AttendanceEntity[] = [
+export const dbAttendances: AttendanceEntity[] = [
   {
     id: 1,
     userId: 1,

@@ -17,43 +17,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Attendance } from "@/orval/attendances";
-
-const attendances: Attendance[] = [
-  {
-    id: 1,
-    date: "2026-04-01",
-    start: "2026-04-01T09:00:00+09:00",
-    end: "2026-04-01T18:00:00+09:00",
-    breakMinutes: 90,
-    type: "working",
-    note: "",
-  },
-  {
-    id: 2,
-    date: "2026-04-02",
-    start: "2026-04-02T09:00:00+09:00",
-    end: "2026-04-02T14:30:00+09:00",
-    breakMinutes: 60,
-    type: "leftEarly",
-    note: "",
-  },
-  {
-    id: 3,
-    date: "2026-04-03",
-    type: "onLeave",
-    note: "私用のため休暇",
-  },
-  {
-    id: 4,
-    date: "2026-04-04",
-    type: "holiday",
-    note: "",
-  },
-];
+import { useGetAttendances } from "@/orval/attendances";
 
 const Page = () => {
   const [month, setMonth] = useState<Date>(new Date());
+  const { data } = useGetAttendances();
 
   const months = useMemo<string[]>(() => {
     return ["202501", "202502", "202503"];
@@ -80,48 +48,52 @@ const Page = () => {
           </SelectContent>
         </Select>
       </div>
-      <div className="mt-4 grid grid-cols-3 gap-4">
-        <Card>
-          <CardContent>
-            <p>月合計時間</p>
-            <p>
-              <span className="text-xl font-bold">
-                {getAttendancesTotal(attendances)}
-              </span>
-              h
-            </p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent>
-            <p>平均勤務時間</p>
-            <p>
-              <span className="text-xl font-bold">
-                {getAttendancesAverage(attendances)}
-              </span>
-              h/日
-            </p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent>
-            <p>未入力日</p>
-            <p>
-              <span className="text-xl font-bold">
-                {getAttendancesEmptyCount(attendances, dates)}
-              </span>
-              日
-            </p>
-          </CardContent>
-        </Card>
-      </div>
-      <div className="mt-4">
-        <AttendancesList
-          attendances={attendances}
-          dates={dates}
-          onClickEdit={() => {}}
-        />
-      </div>
+      {data?.data && (
+        <>
+          <div className="mt-4 grid grid-cols-3 gap-4">
+            <Card>
+              <CardContent>
+                <p>月合計時間</p>
+                <p>
+                  <span className="text-xl font-bold">
+                    {getAttendancesTotal(data.data.attendances)}
+                  </span>
+                  h
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent>
+                <p>平均勤務時間</p>
+                <p>
+                  <span className="text-xl font-bold">
+                    {getAttendancesAverage(data.data.attendances)}
+                  </span>
+                  h/日
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent>
+                <p>未入力日</p>
+                <p>
+                  <span className="text-xl font-bold">
+                    {getAttendancesEmptyCount(data.data.attendances, dates)}
+                  </span>
+                  日
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+          <div className="mt-4">
+            <AttendancesList
+              attendances={data.data.attendances}
+              dates={dates}
+              onClickEdit={() => {}}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 };
