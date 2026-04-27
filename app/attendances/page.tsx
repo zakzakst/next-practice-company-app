@@ -7,7 +7,7 @@ import {
   generateCalendar,
   getAttendancesAverage,
   getAttendancesEmptyCount,
-  getAttendancesSum,
+  getAttendancesTotal,
 } from "@/components/features/attendances/utils";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -21,20 +21,34 @@ import { Attendance } from "@/orval/attendances";
 
 const attendances: Attendance[] = [
   {
-    date: "2026-04-01T09:30:00.000Z",
-    clockIn: "09:00",
-    clockOut: "09:00",
-    break: "01:00",
+    id: 1,
+    date: "2026-04-01",
+    start: "2026-04-01T09:00:00+09:00",
+    end: "2026-04-01T18:00:00+09:00",
+    breakMinutes: 90,
     type: "working",
     note: "",
   },
   {
-    date: "2026-04-02T09:30:00.000Z",
-    clockIn: "",
-    clockOut: "",
-    break: "",
+    id: 2,
+    date: "2026-04-02",
+    start: "2026-04-02T09:00:00+09:00",
+    end: "2026-04-02T14:30:00+09:00",
+    breakMinutes: 60,
+    type: "leftEarly",
+    note: "",
+  },
+  {
+    id: 3,
+    date: "2026-04-03",
     type: "onLeave",
     note: "私用のため休暇",
+  },
+  {
+    id: 4,
+    date: "2026-04-04",
+    type: "holiday",
+    note: "",
   },
 ];
 
@@ -72,7 +86,7 @@ const Page = () => {
             <p>月合計時間</p>
             <p>
               <span className="text-xl font-bold">
-                {getAttendancesSum(attendances)}
+                {getAttendancesTotal(attendances)}
               </span>
               h
             </p>

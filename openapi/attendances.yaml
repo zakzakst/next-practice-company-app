@@ -34,18 +34,22 @@ components:
     Attendance:
       type: object
       properties:
+        id:
+          type: number
         date:
           type: string
           format: date
-        clockIn:
+        start:
           type: string
-        clockOut:
+          format: date
+        end:
           type: string
-        break:
-          type: string
+          format: date
+        breakMinutes:
+          type: number
         type:
           type: string
           enum: ["working", "onLeave", "leftEarly", "other", "holiday"]
         note:
           type: string
-      required: ["date", "clockIn", "clockOut", "break", "type", "note"]
+      required: ["id", "date", "type", "note"]
