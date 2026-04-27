@@ -43,4 +43,16 @@ export const dbAttendances: AttendanceEntity[] = [
     createdAt: "2026-04-04T09:30:00.000Z",
     updatedAt: "2026-04-04T09:30:00.000Z",
   },
+  {
+    id: 5,
+    userId: 1,
+    date: "2026-03-02",
+    start: "2026-03-02T09:00:00+09:00",
+    end: "2026-03-02T18:00:00+09:00",
+    breakMinutes: 60,
+    type: "working",
+    note: "",
+    createdAt: "2026-03-02T09:30:00.000Z",
+    updatedAt: "2026-03-02T09:30:00.000Z",
+  },
 ];

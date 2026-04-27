@@ -10,6 +10,7 @@ import {
   GetAttendances200,
   GetAttendancesParams,
 } from "@/orval/attendances";
+import { isSameMonth } from "date-fns";
 
 export const GET = withErrorHandler(
   async (request: NextRequest): Promise<NextResponse<GetAttendances200>> => {
@@ -30,12 +31,14 @@ export const GET = withErrorHandler(
 
     // === レスポンスデータの作成 ===
     const searchParams = request.nextUrl.searchParams;
-    // TODO: 対象の月で絞り込み
     const month: GetAttendancesParams["month"] =
       searchParams.get("month") || undefined;
-    const filteredAttendances = dbAttendances.filter(
-      (da) => da.userId === user.id,
-    );
+    const filteredAttendances = dbAttendances.filter((da) => {
+      const targetMonth = month ? new Date(month) : new Date();
+      return (
+        da.userId === user.id && isSameMonth(targetMonth, new Date(da.date))
+      );
+    });
     const attendances: Attendance[] = filteredAttendances.map((fa) => {
       const { id, date, start, end, breakMinutes, type, note } = fa;
       return {
