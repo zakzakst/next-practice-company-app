@@ -22,10 +22,11 @@ export const AttendanceType = {
 } as const;
 
 export interface Attendance {
+  id: number;
   date: string;
-  clockIn: string;
-  clockOut: string;
-  break: string;
+  start?: string;
+  end?: string;
+  breakMinutes?: number;
   type: AttendanceType;
   note: string;
 }

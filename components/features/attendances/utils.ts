@@ -5,7 +5,12 @@ import {
   AttendanceTypeWithLabels,
 } from "@/constants/attendance";
 import { Attendance } from "@/orval/attendances";
-import { addDays, endOfMonth, startOfMonth } from "date-fns";
+import {
+  addDays,
+  differenceInMinutes,
+  endOfMonth,
+  startOfMonth,
+} from "date-fns";
 
 export const getAttendanceTypeLabel = (
   id: AttendanceTypeWithLabel["id"] | undefined,
@@ -29,20 +34,40 @@ export const generateCalendar = (currentMonth: Date): Date[] => {
   return dates;
 };
 
-export const getAttendancesSum = (attendances: Attendance[]): number => {
-  // TODO: 合計時間算出実装
-  return 142;
+const getWorkingMinutes = (attendance: Attendance): number => {
+  if (!attendance.start || !attendance.end) return 0;
+  return differenceInMinutes(attendance.end, attendance.start);
+};
+
+export const getAttendancesTotal = (attendances: Attendance[]): number => {
+  const workingAttendances = attendances.filter((a) => a.start && a.end);
+  const total = workingAttendances.reduce<number>(
+    (acc, attendance) => acc + getWorkingMinutes(attendance),
+    0,
+  );
+  return total / 60;
 };
 
 export const getAttendancesAverage = (attendances: Attendance[]): number => {
-  // TODO: 平均時間算出実装
-  return 7.9;
+  const workingAttendances = attendances.filter((a) => a.start && a.end);
+  if (!workingAttendances.length) return 0;
+  const total = workingAttendances.reduce<number>(
+    (acc, attendance) => acc + getWorkingMinutes(attendance),
+    0,
+  );
+  return total / 60 / workingAttendances.length;
 };
 
 export const getAttendancesEmptyCount = (
   attendances: Attendance[],
   dates: Date[],
 ): number => {
-  // TODO: 未入力日算出実装
-  return 3;
+  return dates.length - attendances.length;
+};
+
+export const getTimeStrFromMinutes = (minutes?: number): string | undefined => {
+  if (!minutes) return undefined;
+  const h = Math.floor(minutes / 60);
+  const m = minutes % 60;
+  return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
 };

@@ -1,6 +1,7 @@
 "use client";
 
 import { getAttendanceTypeLabel } from "../utils";
+import { getTimeStrFromMinutes } from "../utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import {
@@ -55,9 +56,17 @@ export const AttendancesList = ({ attendances, dates, onClickEdit }: Props) => {
                 >
                   <TableCell>{format(date, "d")}</TableCell>
                   <TableCell>{format(date, "EE", { locale: ja })}</TableCell>
-                  <TableCell>{attendance?.clockIn || "---"}</TableCell>
-                  <TableCell>{attendance?.clockOut || "---"}</TableCell>
-                  <TableCell>{attendance?.break || "---"}</TableCell>
+                  <TableCell>
+                    {attendance?.start
+                      ? format(attendance.start, "HH:mm")
+                      : "---"}
+                  </TableCell>
+                  <TableCell>
+                    {attendance?.end ? format(attendance.end, "HH:mm") : "---"}
+                  </TableCell>
+                  <TableCell>
+                    {getTimeStrFromMinutes(attendance?.breakMinutes) || "---"}
+                  </TableCell>
                   <TableCell>
                     {getAttendanceTypeLabel(attendance?.type) || "---"}
                   </TableCell>
